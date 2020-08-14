@@ -1,6 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const mongoose = require('mongoose');
+const Post = require('./models/post');
+
+mongoose.connect("mongodb+srv://kellen:vJpKyWJbSzNnI2M5@cluster0.chvpk.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(()=>{
+    console.log('Connected to Database');
+  })
+  .catch(err=>{
+    console.log(err.message);
+  });
 
 app.use(bodyParser.json());
 
@@ -14,9 +24,12 @@ app.use((req, res, next) => {
     "GET, POST, PATCH, DELETE, OPTIONS");
   next();
 });
-
+//vJpKyWJbSzNnI2M5
 app.post('/api/posts', (req, res, next)=>{
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  });
   console.log(post);
   res.status(201).json({
     message: "Post added successfully"
