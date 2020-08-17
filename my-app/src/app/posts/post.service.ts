@@ -2,9 +2,7 @@ import { Post } from './post.model'
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import { map, subscribeOn } from 'rxjs/operators';
-import { PortalHostDirective } from '@angular/cdk/portal';
-import { stringify } from '@angular/compiler/src/util';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})

@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/post');
+const userRoutes = require('./routes/user');
 
 mongoose.connect("mongodb+srv://kellen:vJpKyWJbSzNnI2M5@cluster0.chvpk.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=>{
@@ -30,5 +31,6 @@ mongoose.connect("mongodb+srv://kellen:vJpKyWJbSzNnI2M5@cluster0.chvpk.mongodb.n
   });
 
 app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
 module.exports = app;
