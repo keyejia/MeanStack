@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../post.model';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PostsService } from '../post.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { mimeType } from './mime-type.validator';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-post-create',
@@ -11,7 +13,7 @@ import { mimeType } from './mime-type.validator';
   styleUrls: ['./post-create.component.css']
 })
 
-export class PostCreateComponent implements OnInit{
+export class PostCreateComponent implements OnInit, OnDestroy{
   newPost = 'No Content';
   private mode = 'create';
   private postId: string;
@@ -19,13 +21,20 @@ export class PostCreateComponent implements OnInit{
   post : Post;
   form : FormGroup;
   imagePreview;
+  private authStatusSub: Subscription;
 
   constructor(
     public postsService: PostsService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public authService: AuthService
     ){}
 
   ngOnInit(){
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus =>{
+        this.loading = false;
+      }
+    );
     this.form = new FormGroup({
       'title': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -55,6 +64,10 @@ export class PostCreateComponent implements OnInit{
     });
   }
 
+  ngOnDestroy(){
+    this.authStatusSub.unsubscribe();
+  }
+
   onAddPost(){
     if (this.form.invalid){
       return
@@ -63,7 +76,11 @@ export class PostCreateComponent implements OnInit{
     if (this.mode === 'create'){
       this.postsService.addPost(this.form.value.title, this.form.value.content, this.form.value.image);
     } else {
-      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.form.value.image);
+      this.postsService.updatePost(
+        this.postId,
+        this.form.value.title,
+        this.form.value.content,
+        this.form.value.image);
     }
     this.form.reset();
   }
