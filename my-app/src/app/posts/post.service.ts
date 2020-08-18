@@ -10,7 +10,10 @@ export class PostsService {
   private posts: Post[] = [];
   private postUpdated = new Subject<{posts: Post[], postCount: number}>();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    ) {
 
   }
 
