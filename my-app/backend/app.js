@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const postsRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 
-mongoose.connect("mongodb+srv://kellen:vJpKyWJbSzNnI2M5@cluster0.chvpk.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://kellen:"+ process.env.MONGO_ATLAS_PW +"@cluster0.chvpk.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=>{
     console.log('Connected to Database!');
   })
