@@ -19,12 +19,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-  
-    - name: Create .env file
-      run: |
-      touch .env
-      echo MONGO_ATLAS_PW =${{ secrets.MONGO_ATLAS_PW }} >> .env
-      echo JWT_KEY =${{ secrets.JWT_KEY }} >> .env
 
     - name: npm install, build, and test
       run: |
