@@ -98,8 +98,9 @@ exports.updatePost = (req, res, next)=>{
   Post.updateOne({_id: req.params.id, creator:req.userData.userId}, post).then(result=>{
     if (result.n > 0){
       res.status(200).json({ message:'updated successful' });
-    }
+    } else {
       res.status(401).json({message:"Not Authorized!"});
+    }
   })
   .catch(error=>{
     res.status(500).json({
