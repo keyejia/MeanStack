@@ -1,6 +1,5 @@
 const Post = require('../models/post');
 
-
 exports.deletePost = (req, res, next) =>{
   Post.deleteOne({_id:req.params.id, creator:req.userData.userId}).then(result=>{
     if (result.n>0){

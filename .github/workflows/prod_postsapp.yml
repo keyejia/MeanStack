@@ -19,6 +19,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - name:
+      run: |
+      touch .env
+      echo MONGO_ATLAS_PW= "vJpKyWJbSzNnI2M5" >> .env
+      echo JWT_KEY="secret_this_should_be_longer" >> .env
 
     - name: npm install, build, and test
       run: |
