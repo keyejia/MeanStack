@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'postsapp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6f461b1af961448eb63db81dae414f1a }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_047baedfd65e46d9a858aef707996bab }}
         package: .
